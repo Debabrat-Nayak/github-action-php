@@ -29,6 +29,12 @@ jobs:
       - name: Install Dependencies
         run: composer install
 
+      - name: Copy .env
+        run: cp .env.example .env
+
+      - name: Generate App Key
+        run: php artisan key:generate
+
       - name: Run Naming Convention Check
         run: php scripts/naming-check.php
 
