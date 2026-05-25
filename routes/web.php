@@ -15,7 +15,7 @@ Route::get('/home', function () {
     return $name;
 });
 
-function badFunctionName()
+function BADFunctionName()
 {
     return "Testing";
 }

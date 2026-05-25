@@ -3,8 +3,8 @@ name: Laravel CI Pipeline
 on:
   push:
     branches:
-      - main
       - master
+      - master-staging
 
   pull_request:
     branches:
@@ -12,50 +12,54 @@ on:
       - develop
 
 jobs:
-  quality-checks:
 
+  naming:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v4
 
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+      - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.5'
 
-      - name: Install Dependencies
-        run: composer install
+      - run: composer install
 
-      - name: Copy .env
-        run: cp .env.example .env
-
-      - name: Generate App Key
-        run: php artisan key:generate
-
-      - name: Run Naming Convention Check
-        id: naming
-        continue-on-error: true
+      - name: Naming Convention Check
         run: php scripts/naming-check.php
 
+
+  phpmd:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+
+      - run: composer install
+
       - name: Run PHPMD
-        id: phpmd
-        continue-on-error: true
-        run: |
-          vendor/bin/phpmd app text phpmd.xml
+        run: vendor/bin/phpmd app text phpmd.xml
+
+
+  pest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+
+      - run: composer install
+
+      - run: cp .env.example .env
+
+      - run: php artisan key:generate
 
       - name: Run Pest Tests
-        id: pest
-        continue-on-error: true
         run: vendor/bin/pest
-
-      - name: Fail if any check failed
-        run: |
-          if [ "${{ steps.naming.outcome }}" != "success" ] || \
-             [ "${{ steps.phpmd.outcome }}" != "success" ] || \
-             [ "${{ steps.pest.outcome }}" != "success" ]; then
-            echo "❌ One or more checks failed"
-            exit 1
-          fi

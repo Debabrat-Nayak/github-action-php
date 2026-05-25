@@ -24,12 +24,14 @@ class TestService
 
         return true;
     }
+public function unusedMethod(){
+    echo "This is an unused method";
+}
 
-    private function unusedMethod()
-    {
-        return "unused";
-    }
-
+public function anotherUnusedMethod(){
+$Name = "Debabrat";
+echo $Name;
+}
     public function veryLongMethod()
 {
     echo 1;
@@ -120,6 +122,23 @@ class TestService
     echo 79;
     echo 80;
 
+    echo 81;
+    echo 82;
+    echo 83;
+    echo 84;
+    echo 85;
+    echo 86;
+    echo 87;
+
+    
+    echo 81;
+    echo 82;
+    echo 83;
+    echo 84;
+    echo 85;
+    echo 86;
+    echo 87;
+    
     echo 81;
     echo 82;
     echo 83;
