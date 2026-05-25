@@ -14,6 +14,11 @@ Route::get('/home', function () {
     $name = 'Debabrat';
     return $name;
 });
+
+function badFunctionName()
+{
+    return "Testing";
+}
 // function add(int $a, int $b): int
 // {
 //     return $a + $b;
