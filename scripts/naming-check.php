@@ -10,55 +10,61 @@ function checkPascalCase($name)
     return preg_match('/^[A-Z][a-zA-Z0-9]*$/', $name);
 }
 
-$directory = __DIR__ . '/..';
-
-$iterator = new RecursiveIteratorIterator(
-    new RecursiveDirectoryIterator($directory)
-);
+$directories = [
+    __DIR__ . '/../app',
+    __DIR__ . '/../routes'
+];
 
 $hasError = false;
 
-foreach ($iterator as $file) {
+foreach ($directories as $directory) {
 
-    if ($file->getExtension() !== 'php') {
-        continue;
-    }
+    $iterator = new RecursiveIteratorIterator(
+        new RecursiveDirectoryIterator($directory)
+    );
 
-    $content = file_get_contents($file->getPathname());
+    foreach ($iterator as $file) {
 
-    // Check class names
-    preg_match_all('/class\s+([A-Za-z0-9_]+)/', $content, $classes);
-
-    foreach ($classes[1] as $className) {
-
-        if (!checkPascalCase($className)) {
-
-            echo "Invalid Class Name: $className in {$file->getFilename()}\n";
-            $hasError = true;
+        if ($file->getExtension() !== 'php') {
+            continue;
         }
-    }
 
-    // Check function names
-    preg_match_all('/function\s+([A-Za-z0-9_]+)\s*\(/', $content, $functions);
+        $content = file_get_contents($file->getPathname());
 
-    foreach ($functions[1] as $functionName) {
+        // Check class names
+        preg_match_all('/class\s+([A-Za-z0-9_]+)/', $content, $classes);
 
-        if (!checkCamelCase($functionName)) {
+        foreach ($classes[1] as $className) {
 
-            echo "Invalid Function Name: $functionName in {$file->getFilename()}\n";
-            $hasError = true;
+            if (!checkPascalCase($className)) {
+
+                echo "Invalid Class Name: $className in {$file->getFilename()}\n";
+                $hasError = true;
+            }
         }
-    }
 
-    // Check variables
-    preg_match_all('/\\$([A-Za-z0-9_]+)/', $content, $variables);
+        // Check function names
+        preg_match_all('/function\s+([A-Za-z0-9_]+)\s*\(/', $content, $functions);
 
-    foreach ($variables[1] as $variableName) {
+        foreach ($functions[1] as $functionName) {
 
-        if (!checkCamelCase($variableName)) {
+            if (!checkCamelCase($functionName)) {
 
-            echo "Invalid Variable Name: $variableName in {$file->getFilename()}\n";
-            $hasError = true;
+                echo "Invalid Function Name: $functionName in {$file->getFilename()}\n";
+                $hasError = true;
+            }
+        }
+
+        // Check variable names
+        preg_match_all('/\\$([A-Za-z0-9_]+)/', $content, $variables);
+
+        foreach ($variables[1] as $variableName) {
+
+            if (!checkCamelCase($variableName)) {
+
+                echo "Invalid Variable Name: $variableName in {$file->getFilename()}\n";
+                $hasError = true;
+            }
         }
     }
 }
