@@ -36,5 +36,5 @@ jobs:
         run: |
           vendor/bin/phpmd app text phpmd.xml
 
-      - name: Run PHPUnit Tests
-        run: vendor/bin/phpunit --configuration phpunit.xml
+      - name: Run Pest Tests
+        run: vendor/bin/pest
