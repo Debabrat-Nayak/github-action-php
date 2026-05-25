@@ -9,18 +9,10 @@ Route::get('/', function () {
     return $name;
 });
 
-Route::get('/user', function () {
-
-    $Uer_Nam = "Debabrat";
-
-    return $Uer_Nam;
-});
-
-Route::get('/user', function () {
-
-    $Na_Na = "Debabrat";
-
-    return $Na_Na;
+Route::get('/home', function () {
+    return 'Laravel Working Successfully nikun';
+    $name = 'Debabrat';
+    return $name;
 });
 // function add(int $a, int $b): int
 // {
