@@ -130,7 +130,7 @@ class TestService
 //     echo 86;
 //     echo 87;
 // }
-function BADFunctionName()
+function badFunctionName()
 {
     return "Testing";
 }
