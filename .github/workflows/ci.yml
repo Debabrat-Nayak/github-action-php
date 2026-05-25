@@ -3,7 +3,7 @@ name: Laravel CI Pipeline
 on:
   push:
     branches:
-      - master-staging
+      - main
       - master
 
   pull_request:
@@ -36,11 +36,26 @@ jobs:
         run: php artisan key:generate
 
       - name: Run Naming Convention Check
+        id: naming
+        continue-on-error: true
         run: php scripts/naming-check.php
 
       - name: Run PHPMD
+        id: phpmd
+        continue-on-error: true
         run: |
           vendor/bin/phpmd app text phpmd.xml
 
       - name: Run Pest Tests
+        id: pest
+        continue-on-error: true
         run: vendor/bin/pest
+
+      - name: Fail if any check failed
+        run: |
+          if [ "${{ steps.naming.outcome }}" != "success" ] || \
+             [ "${{ steps.phpmd.outcome }}" != "success" ] || \
+             [ "${{ steps.pest.outcome }}" != "success" ]; then
+            echo "❌ One or more checks failed"
+            exit 1
+          fi

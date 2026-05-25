@@ -15,18 +15,10 @@ Route::get('/home', function () {
     return $name;
 });
 
-function unusedFunction()
-{
-    return "I am never called";
-}
-
 function badFunctionName()
 {
     return "Testing";
 }
-
-
-$unusedVariable = "This variable is never used";
 // function add(int $a, int $b): int
 // {
 //     return $a + $b;
