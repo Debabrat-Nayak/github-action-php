@@ -9,6 +9,12 @@ Route::get('/', function () {
     return $name;
 });
 
+Route::get('/bad-variable', function () {
+
+    $USER_NAME = "Debabrat";
+
+    return $USER_NAME;
+});
 // function add(int $a, int $b): int
 // {
 //     return $a + $b;
