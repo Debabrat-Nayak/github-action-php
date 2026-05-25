@@ -15,6 +15,13 @@ Route::get('/user', function () {
 
     return $Uer_Nam;
 });
+
+Route::get('/user', function () {
+
+    $Na_Na = "Debabrat";
+
+    return $Na_Na;
+});
 // function add(int $a, int $b): int
 // {
 //     return $a + $b;
