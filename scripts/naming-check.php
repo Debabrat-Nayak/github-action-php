@@ -10,7 +10,7 @@ function checkPascalCase($name)
     return preg_match('/^[A-Z][a-zA-Z0-9]*$/', $name);
 }
 
-$directory = __DIR__ . '/../app';
+$directory = __DIR__ . '/..';
 
 $iterator = new RecursiveIteratorIterator(
     new RecursiveDirectoryIterator($directory)
