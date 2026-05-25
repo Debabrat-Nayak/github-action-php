@@ -3,11 +3,11 @@
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-    // return 'Laravel Working Successfully nikun';
-//     $name = 'Debabrat';
-//     return $name;
-// });
+Route::get('/', function () {
+    return 'Laravel Working Successfully nikun';
+    $name = 'Debabrat';
+    return $name;
+});
 
 // function add(int $a, int $b): int
 // {
