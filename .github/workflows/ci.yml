@@ -42,7 +42,7 @@ jobs:
       - run: composer install
 
       - name: Detect Code Quality Issues
-        run: vendor/bin/phpmd . text phpmd.xml
+        run: vendor/bin/phpmd app text phpmd.xml
 
   static-code-analysis:
     runs-on: ubuntu-latest

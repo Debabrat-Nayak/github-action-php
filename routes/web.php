@@ -9,13 +9,15 @@ Route::get('/', function () {
     return $name;
 });
 
+
+
 Route::get('/home', function () {
     return 'Laravel Working Successfully nikun';
     $name = 'Debabrat';
     return $name;
 });
 
-function BADFunctionName()
+function baaFunctionName()
 {
     return "Testing";
 }
