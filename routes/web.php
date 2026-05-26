@@ -22,6 +22,10 @@ function baaFunctionName()
     return "Testing";
 }
 
+function fnbjfjknhnf()
+{
+    return "Testing";
+}
 
 Route::get('/fdhb', function () {
 
