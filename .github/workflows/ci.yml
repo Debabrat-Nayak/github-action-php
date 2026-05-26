@@ -13,7 +13,7 @@ on:
 
 jobs:
 
-  naming:
+  naming-convention:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,11 +25,11 @@ jobs:
 
       - run: composer install
 
-      - name: Naming Convention Check
+      - name: Validate Project Naming Standards
         run: php scripts/naming-check.php
 
 
-  phpmd:
+  code-detection:
     runs-on: ubuntu-latest
 
     steps:
@@ -41,8 +41,23 @@ jobs:
 
       - run: composer install
 
-      - name: Run PHPMD
-        run: vendor/bin/phpmd app text phpmd.xml
+      - name: Detect Code Quality Issues
+        run: vendor/bin/phpmd . text phpmd.xml
+
+  static-code-analysis:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+
+      - run: composer install
+
+      - name: Analyze Application Code
+        run: vendor/bin/phpstan analyse
 
 
   pest:

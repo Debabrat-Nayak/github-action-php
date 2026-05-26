@@ -19,6 +19,14 @@ function BADFunctionName()
 {
     return "Testing";
 }
+
+
+Route::get('/fdhb', function () {
+
+    $name = 'Debabrat';
+
+    return $namee;
+});
 // function add(int $a, int $b): int
 // {
 //     return $a + $b;
